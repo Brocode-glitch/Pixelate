@@ -1,9 +1,11 @@
 // Your code here
 const table = document.getElementById("the-ul");
+// Drag click functionallity, to revert change "mouseover" to "click"
+table.addEventListener("mouseover", colorize);
+////////////////////////////
+
 const addRowButton = document.getElementById("add-row");
 addRowButton.addEventListener("click", makeRow);
-
-table.addEventListener("click", colorize);
 
 function makeRow() {
   const newLi = document.createElement("tr");
@@ -14,12 +16,25 @@ function makeRow() {
   table.appendChild(newLi);
 }
 
+// Drag click functionallity, to revert just delete these lines
+let mouseIsDown = false;
+document.addEventListener('mousedown', () => mouseIsDown = true);
+document.addEventListener('mouseup', () => mouseIsDown = false);
+////////////////////////////
+
 function colorize(event) {
+  // Drag click functionallity
+  if (!mouseIsDown) return;
+  ////////////////////////////
+  
   console.log("Clicked!");
   const targetSquare = event.target;
+
+  const color = document.getElementById("color-select").value;
+
   if (targetSquare.className.length) {
     targetSquare.className = "";
   } else {
-    targetSquare.className = "red";
+    targetSquare.className = color;
   }
 }
